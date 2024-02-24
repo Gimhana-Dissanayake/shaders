@@ -1,10 +1,18 @@
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
 uniform vec3 u_color;
 
 // A THREE.js Color translates to a vec3 type
 
 void main() {
 
-    gl_FragColor = vec4(u_color, 1.0);
+    // vec3 color = vec3(u_mouse.x/ u_resolution.x,0.0,u_mouse.y/u_resolution.y);
+    // an alternative method 
+    vec2 v = u_mouse/u_resolution;
+    vec3 color1 = vec3(v.x, 0.0, v.y)
+    gl_FragColor = vec4(color1, 1.0);
+
+
 
 }
 

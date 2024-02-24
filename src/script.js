@@ -42,10 +42,15 @@ const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
 // uniforms can be used to pass values from the control program to our shaders
 const uniforms = {
+  u_time:{value: 0.0},
+  u_mouse:{value:{x:0.0, y:0.0}},
+  u_resolution:{value:{x:0.0, y:0.0}},
   u_color: {value: new THREE.Color(0xff0000)},
 };
 
 // You will see a red cube. This is the default result that the three.js library returns if you do not pass any parameters, when creating new shader material
+
+// Each uniform will store a common value for each vertx and pixel
 const material = new THREE.ShaderMaterial({
   uniforms: uniforms,
   vertexShader: vertexShader,
@@ -112,6 +117,7 @@ window.addEventListener("resize", () => {
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  
 });
 
 /**
@@ -161,3 +167,43 @@ const tick = () => {
 };
 
 tick();
+
+
+// FUNCTIONS
+
+const onWindowResize = () => {
+  // Update sizes
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  // Update camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  if(uniforms.u_resolution !== undefined){
+    uniforms.u_resolution.value.x = window.innerWidth;
+    uniforms.u_resolution.value.y = window.innerHeight
+  }
+}
+
+const move = (evt) =>{
+  uniforms.u_mouse.value.x = (evt.touches) ? evt.touches[0].clientX : evt.clientX;
+  uniforms.u_mouse.value.y = (evt.touches) ? evt.touches[0].clientY : evt.clientY;
+}
+
+// EVENT LISTNERS
+if('ontouchstart' in window){
+  document.addEventListener('touchmove', move)
+}else{
+  window.addEventListener('resize',onWindowResize )
+  document.addEventListener('mousemove',move)
+}
+
+// ON LOAD
+window.onload = () => {
+  onWindowResize()
+}
