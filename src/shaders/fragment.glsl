@@ -1,6 +1,10 @@
+uniform vec3 u_color;
+
+// A THREE.js Color translates to a vec3 type
+
 void main() {
 
-    gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+    gl_FragColor = vec4(u_color, 1.0);
 
 }
 

@@ -2,8 +2,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import gsap from "gsap";
 import GUI from "lil-gui";
-import vertexShader from './shaders/vertex.glsl'
-import fragmentShader from './shaders/fragment.glsl'
+import vertexShader from "./shaders/vertex.glsl";
+import fragmentShader from "./shaders/fragment.glsl";
 
 /**
  * Debug
@@ -40,11 +40,17 @@ const scene = new THREE.Scene();
 
 const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
+// uniforms can be used to pass values from the control program to our shaders
+const uniforms = {
+  u_color: {value: new THREE.Color(0xff0000)},
+};
+
 // You will see a red cube. This is the default result that the three.js library returns if you do not pass any parameters, when creating new shader material
-const material = new THREE.ShaderMaterial(
-  {vertexShader:vertexShader,
-  fragmentShader:fragmentShader}
-);
+const material = new THREE.ShaderMaterial({
+  uniforms: uniforms,
+  vertexShader: vertexShader,
+  fragmentShader: fragmentShader,
+});
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
