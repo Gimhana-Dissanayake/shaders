@@ -42,11 +42,20 @@ void main() {
     */
 
 
-    // Using smooth step
-    vec3 color = vec3(0.0);
+    // Using step
+    /*
+      vec3 color = vec3(0.0);
     color.r = step(0.0, v_position.x);
     color.g = step(0.0, v_position.y);
     color.z = step(0.0, v_position.z);
+    gl_FragColor = vec4(color, 1.0);
+    */
+  
+    // Using smooth step
+    vec3 color = vec3(0.0);
+    color.r = smoothstep(0.0,0.1, v_position.x);
+    color.g = smoothstep(0.0,0.1, v_position.y);
+    color.z = smoothstep(0.0,0.1, v_position.z);
     gl_FragColor = vec4(color, 1.0);
 
 
