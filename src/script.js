@@ -161,6 +161,8 @@ const tick = () => {
 
   // Render
   renderer.render(scene, camera);
+  
+  uniforms.u_time.value = elapsedTime;
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick);

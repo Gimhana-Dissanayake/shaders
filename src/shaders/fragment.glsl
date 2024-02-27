@@ -1,6 +1,7 @@
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform vec3 u_color;
+uniform float u_time;
 
 // A THREE.js Color translates to a vec3 type
 
@@ -8,11 +9,16 @@ void main() {
 
     // vec3 color = vec3(u_mouse.x/ u_resolution.x,0.0,u_mouse.y/u_resolution.y);
     // an alternative method 
+    /*
     vec2 v = u_mouse/u_resolution;
     vec3 color1 = vec3(v.x, 0.0, v.y)
     gl_FragColor = vec4(color1, 1.0);
+    */
 
-
+    // Changing the color with time
+    // When we run this shader, remember the GPU is busyly calculating the value of the color for each pixel in the screen, often simultaneously working with dozons of pixels in the same time. It is doing all those pixels 60 times per second.
+    vec3 color = vec3((sin(u_time) + 1.0)/2.0, 0.0, (cos(u_time) + 1.0)/ 2.0);
+    gl_FragColor = vec4(color, 1.0);
 
 }
 
