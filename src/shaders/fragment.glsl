@@ -6,6 +6,7 @@ uniform float u_time;
 // A THREE.js Color translates to a vec3 type
 
 varying vec2 v_uv;
+varying vec3 v_position;
 
 void main() {
 
@@ -30,7 +31,11 @@ void main() {
     // vec3 color = mix(vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), uv.x);
     // gl_FragColor = vec4(color, 1.0);
 
-    vec3 color = vec3(v_uv.x, v_uv.y, 0.0);
+    vec3 color = vec3(0);
+    // clamp enables to give maximum and minimum values
+    color.r = clamp(v_position.x, 0.0, 1.0);
+    color.g = clamp(v_position.y, 0.0, 1.0);
+    color.b = clamp(v_position.z, 0.0, 1.0);
     gl_FragColor = vec4(color, 1.0);
 
 }
