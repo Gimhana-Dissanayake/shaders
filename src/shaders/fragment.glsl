@@ -5,6 +5,8 @@ uniform float u_time;
 
 // A THREE.js Color translates to a vec3 type
 
+varying vec2 v_uv;
+
 void main() {
 
     // vec3 color = vec3(u_mouse.x/ u_resolution.x,0.0,u_mouse.y/u_resolution.y);
@@ -24,8 +26,11 @@ void main() {
 
     // Blending colors to create gradients
     // In the mix function. The first two variables are the colors that we are mixing from and two. If mix(x, y, 0.0) then we will get the color x, If mix(x, y, 1.0) then we will get color y. 
-    vec2 uv = gl_FragCoord.xy / u_resolution;
-    vec3 color = mix(vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), uv.x);
+    // vec2 uv = gl_FragCoord.xy / u_resolution;
+    // vec3 color = mix(vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), uv.x);
+    // gl_FragColor = vec4(color, 1.0);
+
+    vec3 color = vec3(v_uv.x, v_uv.y, 0.0);
     gl_FragColor = vec4(color, 1.0);
 
 }
