@@ -17,7 +17,15 @@ void main() {
 
     // Changing the color with time
     // When we run this shader, remember the GPU is busyly calculating the value of the color for each pixel in the screen, often simultaneously working with dozons of pixels in the same time. It is doing all those pixels 60 times per second.
+    /*
     vec3 color = vec3((sin(u_time) + 1.0)/2.0, 0.0, (cos(u_time) + 1.0)/ 2.0);
+    gl_FragColor = vec4(color, 1.0);
+    */
+
+    // Blending colors to create gradients
+    // In the mix function. The first two variables are the colors that we are mixing from and two. If mix(x, y, 0.0) then we will get the color x, If mix(x, y, 1.0) then we will get color y. 
+    vec2 uv = gl_FragCoord.xy / u_resolution;
+    vec3 color = mix(vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), uv.x);
     gl_FragColor = vec4(color, 1.0);
 
 }
