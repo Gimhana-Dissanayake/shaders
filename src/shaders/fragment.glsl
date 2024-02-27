@@ -6,6 +6,7 @@ uniform float u_time;
 // A THREE.js Color translates to a vec3 type
 
 varying vec2 v_uv;
+varying vec3 v_position;
 
 void main() {
 
@@ -30,8 +31,12 @@ void main() {
     // vec3 color = mix(vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), uv.x);
     // gl_FragColor = vec4(color, 1.0);
 
-    vec3 color = vec3(v_uv.x, v_uv.y, 0.0);
-    gl_FragColor = vec4(color, 1.0);
+    // v_uv is a varying. It is passed from the vertex shader. It can be used to find out about the uv coordinates in the fragment shader. The fragment shader will receive the perspective correct interpolated value of the variable so we are in the middle of the traingle then the value of the v_uv in the fragment shader will be a blender of the vertex uv value for each vertex
+    // vec3 color = vec3(v_uv.x, v_uv.y, 0.0);
+    // gl_FragColor = vec4(color, 1.0);
+
+    // vec3 color = vec3(v_position.x, v_position.y, 0.0);
+    // gl_FragColor = vec4(color, 1.0);
 
 }
 
