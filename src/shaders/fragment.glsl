@@ -31,12 +31,24 @@ void main() {
     // vec3 color = mix(vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), uv.x);
     // gl_FragColor = vec4(color, 1.0);
 
-    vec3 color = vec3(0);
+    
     // clamp enables to give maximum and minimum values
+    /* 
+    vec3 color = vec3(0);
     color.r = clamp(v_position.x, 0.0, 1.0);
     color.g = clamp(v_position.y, 0.0, 1.0);
     color.b = clamp(v_position.z, 0.0, 1.0);
     gl_FragColor = vec4(color, 1.0);
+    */
+
+
+    // Using smooth step
+    vec3 color = vec3(0.0);
+    color.r = step(0.0, v_position.x);
+    color.g = step(0.0, v_position.y);
+    color.z = step(0.0, v_position.z);
+    gl_FragColor = vec4(color, 1.0);
+
 
 }
 
