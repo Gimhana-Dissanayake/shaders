@@ -52,12 +52,16 @@ void main() {
     */
   
     // Using smooth step
-    vec3 color = vec3(0.0);
-    color.r = smoothstep(0.0,0.1, v_position.x);
-    color.g = smoothstep(0.0,0.1, v_position.y);
-    color.z = smoothstep(0.0,0.1, v_position.z);
-    gl_FragColor = vec4(color, 1.0);
+    // vec3 color = vec3(0.0);
+    // color.r = smoothstep(0.0,0.1, v_position.x);
+    // color.g = smoothstep(0.0,0.1, v_position.y);
+    // color.z = smoothstep(0.0,0.1, v_position.z);
+    // gl_FragColor = vec4(color, 1.0);
 
+    float inCircle = 1.0 - step(0.5, length(v_position.xy));
+    vec3 color = vec3(1.0, 1.0, 0.0) * inCircle;
+
+    gl_FragColor = vec4(color, 1.0);
 
 }
 
