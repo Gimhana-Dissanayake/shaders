@@ -8,7 +8,7 @@ uniform float u_time;
 varying vec2 v_uv;
 varying vec3 v_position;
 
-float rect(vec2 pt, vec2 size, vec2 center){
+float rect(vec2 pt, vec2 size, vec2 center) {
     vec2 p = pt - center;
     vec2 halfsize = size * 0.5;
 
@@ -41,7 +41,6 @@ void main() {
     // vec3 color = mix(vec3(1.0, 0.0, 0.0), vec3(0.0, 0.0, 1.0), uv.x);
     // gl_FragColor = vec4(color, 1.0);
 
-    
     // clamp enables to give maximum and minimum values
     /* 
     vec3 color = vec3(0);
@@ -51,7 +50,6 @@ void main() {
     gl_FragColor = vec4(color, 1.0);
     */
 
-
     // Using step
     /*
       vec3 color = vec3(0.0);
@@ -60,7 +58,7 @@ void main() {
     color.z = step(0.0, v_position.z);
     gl_FragColor = vec4(color, 1.0);
     */
-  
+
     // Using smooth step
     // vec3 color = vec3(0.0);
     // color.r = smoothstep(0.0,0.1, v_position.x);
@@ -77,9 +75,21 @@ void main() {
     */
 
     // Drawing a rectangle
+    /*
     float inRect = rect(v_position.xy, vec2(1.0), vec2(0.0));
     vec3 color = vec3(1.0, 1.0, 0.0) * inRect;
     gl_FragColor = vec4(color, 1.0);
+    */
+
+// Drawing two squares
+/*    float square1 = rect(v_position.xy, vec2(0.3), vec2(-0.5, 0.0));
+
+    float square2 = rect(v_position.xy, vec2(0.4), vec2(0.5, 0.0));
+
+    vec3 color = vec3(0.14, 0.53, 0.42) * square1 + vec3(0.0,1.0, 0.0) * square2;
+
+    gl_FragColor = vec4(color, 1.0);
+    */
 
 }
 
