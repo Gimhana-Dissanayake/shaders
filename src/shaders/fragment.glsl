@@ -18,6 +18,12 @@ float rect(vec2 pt, vec2 size, vec2 center) {
     return horz * vert;
 }
 
+  mat2 getRotationMatrix(float theta){
+        float s = sin(theta);
+        float c = cos(theta);
+        return mat2(c, -s, s, c);
+    }
+
 void main() {
 
     // vec3 color = vec3(u_mouse.x/ u_resolution.x,0.0,u_mouse.y/u_resolution.y);
@@ -99,6 +105,14 @@ void main() {
     vec3 color = vec3(1.0, 1.0, 0.0) * square;
     gl_FragColor = vec4(color, 1.0);
     */
+
+    // Roating the shape
+    vec2 center = vec2(0.0);
+    mat2 mat = getRotationMatrix(u_time);
+    vec2 pt = mat * v_position.xy;
+    float inRect = rect(pt, vec2(0.5), center);
+    vec3 color = vec3(1.0, 1.0, 0.0) * inRect;
+    gl_FragColor = vec4(color, 1.0);
 
 }
 
