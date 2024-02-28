@@ -22,8 +22,6 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-const debugObject = {};
-
 /**
  * Base
  */
@@ -67,17 +65,24 @@ const sizes = {
 };
 
 window.addEventListener("resize", () => {
-  // Update sizes
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
-
-  // Update camera
-  camera.aspect = sizes.width / sizes.height;
+  const aspectRatio = window.innerWidth/window.innerHeight;
+  let width, height;
+  if (aspectRatio>=1){
+    width = 1;
+    height = (window.innerHeight/window.innerWidth) * width;
+    
+  }else{
+    width = aspectRatio;
+    height = 1;
+  }
+  camera.left = -width;
+  camera.right = width;
+  camera.top = height;
+  camera.bottom = -height;
   camera.updateProjectionMatrix();
-
-  // Update renderer
-  renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  uniforms.u_resolution.value.x = window.innerWidth;
+  uniforms.u_resolution.value.y = window.innerHeight;
   
 });
 
@@ -95,8 +100,8 @@ scene.add(camera);
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
-renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight );
+// renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 /**
  * Animate
@@ -121,22 +126,24 @@ tick();
 // FUNCTIONS
 
 const onWindowResize = () => {
-  // Update sizes
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
-
-  // Update camera
-  camera.aspect = sizes.width / sizes.height;
-  camera.updateProjectionMatrix();
-
-  // Update renderer
-  renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  if(uniforms.u_resolution !== undefined){
-    uniforms.u_resolution.value.x = window.innerWidth;
-    uniforms.u_resolution.value.y = window.innerHeight
+  const aspectRatio = window.innerWidth/window.innerHeight;
+  let width, height;
+  if (aspectRatio>=1){
+    width = 1;
+    height = (window.innerHeight/window.innerWidth) * width;
+    
+  }else{
+    width = aspectRatio;
+    height = 1;
   }
+  camera.left = -width;
+  camera.right = width;
+  camera.top = height;
+  camera.bottom = -height;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  uniforms.u_resolution.value.x = window.innerWidth;
+  uniforms.u_resolution.value.y = window.innerHeight;
 }
 
 const move = (evt) =>{

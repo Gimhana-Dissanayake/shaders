@@ -82,16 +82,23 @@ void main() {
     */
 
 // Drawing two squares
-    float square1 = rect(v_position.xy, vec2(0.3), vec2(-0.5, 0.0));
+   /*float square1 = rect(v_position.xy, vec2(0.3), vec2(-0.5, 0.0));
 
     float square2 = rect(v_position.xy, vec2(0.4), vec2(0.5, 0.0));
 
     vec3 color = vec3(0.14, 0.53, 0.42) * square1 + vec3(0.0,1.0, 0.0) * square2;
 
     gl_FragColor = vec4(color, 1.0);
-    
+    */
 
-    
+    // Moving the shape
+    /*
+    float radius = 0.5;
+    vec2 center = vec2(cos(u_time) * radius, sin(u_time) * radius);
+    float square = rect(v_position.xy, vec2(0.5), vec2(center));
+    vec3 color = vec3(1.0, 1.0, 0.0) * square;
+    gl_FragColor = vec4(color, 1.0);
+    */
 
 }
 
