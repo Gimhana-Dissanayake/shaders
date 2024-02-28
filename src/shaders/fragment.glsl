@@ -18,11 +18,23 @@ float rect(vec2 pt, vec2 size, vec2 center) {
     return horz * vert;
 }
 
-  mat2 getRotationMatrix(float theta){
-        float s = sin(theta);
-        float c = cos(theta);
-        return mat2(c, -s, s, c);
-    }
+float rect2(vec2 pt, vec2 anchor, vec2 size, vec2 center) {
+    vec2 p = pt - center;
+    vec2 halfsize = size * 0.5;
+    float horz = step(-halfsize.x - anchor.x, p.x) - step(halfsize.x - anchor.x, p.x);
+    float vert = step(-halfsize.y - anchor.y, p.y) - step(halfsize.y - anchor.y, p.y);
+    return horz * vert;
+}
+
+mat2 getScaleMatrix(float scale) {
+    return mat2(scale, 0, 0, scale);
+}
+
+mat2 getRotationMatrix(float theta) {
+    float s = sin(theta);
+    float c = cos(theta);
+    return mat2(c, -s, s, c);
+}
 
 void main() {
 
@@ -107,10 +119,21 @@ void main() {
     */
 
     // Roating the shape
+    /*
     vec2 center = vec2(0.0);
     mat2 mat = getRotationMatrix(u_time);
     vec2 pt = mat * v_position.xy;
     float inRect = rect(pt, vec2(0.5), center);
+    vec3 color = vec3(1.0, 1.0, 0.0) * inRect;
+    gl_FragColor = vec4(color, 1.0);
+    */
+
+    // Changing the rotation centre
+    vec2 center = vec2(0.5, 0.0);
+    mat2 matr = getRotationMatrix(u_time);
+    mat2 mats = getScaleMatrix((sin(u_time) + 1.0)/ 3.0 + 0.5);
+    vec2 pt = (mats * matr * (v_position.xy - center)) + center;
+    float inRect = rect2(pt, vec2(0.15), vec2(0.3), center);
     vec3 color = vec3(1.0, 1.0, 0.0) * inRect;
     gl_FragColor = vec4(color, 1.0);
 
