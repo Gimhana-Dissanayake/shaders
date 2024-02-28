@@ -140,8 +140,7 @@ void main() {
     */
 
     // Tiling
-    
-    float tileCount = 6.0;
+    /*    float tileCount = 6.0;
     vec2 center = vec2(0.5);
     mat2 mat = getRotationMatrix(u_time);
     vec2 p = fract(v_uv * tileCount);
@@ -149,6 +148,8 @@ void main() {
     float inRect = rect(pt, vec2(0.5), center);
     vec3 color = vec3(1.0, 1.0, 0.0) * inRect;
     gl_FragColor = vec4(color, 1.0);
+    */
+
 
 }
 
