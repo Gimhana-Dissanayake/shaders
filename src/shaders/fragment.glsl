@@ -129,11 +129,24 @@ void main() {
     */
 
     // Changing the rotation centre
+    /*
     vec2 center = vec2(0.5, 0.0);
     mat2 matr = getRotationMatrix(u_time);
     mat2 mats = getScaleMatrix((sin(u_time) + 1.0)/ 3.0 + 0.5);
     vec2 pt = (mats * matr * (v_position.xy - center)) + center;
     float inRect = rect2(pt, vec2(0.15), vec2(0.3), center);
+    vec3 color = vec3(1.0, 1.0, 0.0) * inRect;
+    gl_FragColor = vec4(color, 1.0);
+    */
+
+    // Tiling
+    
+    float tileCount = 6.0;
+    vec2 center = vec2(0.5);
+    mat2 mat = getRotationMatrix(u_time);
+    vec2 p = fract(v_uv * tileCount);
+    vec2 pt = (mat * (p - center)) + center;
+    float inRect = rect(pt, vec2(0.5), center);
     vec3 color = vec3(1.0, 1.0, 0.0) * inRect;
     gl_FragColor = vec4(color, 1.0);
 
